@@ -52,7 +52,7 @@ resource "aws_eip" "iac-eip-20220223" {
 // 4. Route53
 resource "aws_route53_record" "iac-route53-20220223" {
   zone_id = aws_route53_zone.primary.zone_id
-  name    = "www.rhea-so.com"
+  name    = "iac.rhea-so.com"
   type    = "A"
   ttl     = "300"
   records = [aws_eip.iac-eip-20220223.public_ip]
