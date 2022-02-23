@@ -21,6 +21,8 @@ resource "aws_subnet" "iac-subnet-20220223" {
   vpc_id     = aws_vpc.iac-vpc-20220223.id
   cidr_block = "10.0.1.0/24"
 
+  enable_dns64 = true
+  enable_resource_name_dns_aaaa_record_on_launch = true
   enable_resource_name_dns_a_record_on_launch = true
 
   tags = {
