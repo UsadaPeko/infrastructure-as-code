@@ -40,7 +40,20 @@ resource "aws_instance" "iac-ec2-20220223" {
  }
 
 // 3. EIP
-resource "aws_eip" "stage_server" {
+resource "aws_eip" "iac-eip-20220223" {
   instance = aws_instance.iac-ec2-20220223.id
   vpc      = true
+
+   tags = {
+     Name = "iac-eip-20220223"
+   }
+}
+
+// 4. Route53
+resource "aws_route53_record" "iac-route53-20220223" {
+  zone_id = aws_route53_zone.primary.zone_id
+  name    = "iac.rhea-so.com"
+  type    = "A"
+  ttl     = "300"
+  records = [aws_eip.iac-eip-20220223.public_ip]
 }
