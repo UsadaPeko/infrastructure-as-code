@@ -25,7 +25,7 @@ resource "aws_subnet" "iac-subnet-20220223" {
 // 4. Routing Table
 resource "aws_route_table" "iac-routing-table-20220223" {
   vpc_id = aws_vpc.iac-vpc-20220223.id
-  subnet_id = iac-subnet-20220223
+  id = iac-subnet-20220223
 
   route {
     cidr_block = "0.0.0.0/0"
