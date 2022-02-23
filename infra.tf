@@ -20,6 +20,12 @@ resource "aws_internet_gateway" "iac-igw-20220223" {
 resource "aws_subnet" "iac-subnet-20220223" {
   vpc_id     = aws_vpc.iac-vpc-20220223.id
   cidr_block = "10.0.1.0/24"
+
+  enable_resource_name_dns_a_record_on_launch = true
+
+  tags = {
+    Name = "iac-subnet-20220223"
+  }
 }
 
 // 4. Routing Table
