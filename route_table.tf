@@ -1,4 +1,4 @@
-resource "aws_route_table" "iac-routing-table" {
+resource "aws_route_table" "iac-route-table" {
   vpc_id = aws_vpc.iac-vpc.id
 
   route {
@@ -7,6 +7,6 @@ resource "aws_route_table" "iac-routing-table" {
   }
 
   tags = {
-    Name = "iac-routing-table"
+    Name = "iac-route-table"
   }
 }
