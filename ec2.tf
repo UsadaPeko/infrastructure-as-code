@@ -49,7 +49,7 @@ resource "aws_eip" "iac-eip-20220223" {
    }
 }
 
-// 4. Domain
+// 4. Route53
 resource "aws_route53_record" "iac-route53-20220223" {
   zone_id = aws_route53_zone.primary.zone_id
   name    = "www.rhea-so.com"
