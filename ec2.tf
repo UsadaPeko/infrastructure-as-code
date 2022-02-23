@@ -1,4 +1,4 @@
-resource "aws_instance" "EC2" {
+resource "aws_instance" "stage_server" {
    ami           = "ami-0454bb2fefc7de534"
    instance_type = "t3.nano"
    key_name = "Home"
@@ -6,6 +6,6 @@ resource "aws_instance" "EC2" {
    vpc_security_group_ids = [aws_security_group.allow_coffee_tree.id]
 
    tags = {
-     Name = "EC2"
+     Name = "stage_server"
    }
  }
