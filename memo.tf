@@ -92,7 +92,7 @@ resource "aws_ecs_task_definition" "memo-ecs-task-definition" {
     {
       name      = "memo-ecs-container"
       image     = "${aws_ecr_repository.memo-ecr.repository_url}:latest"
-      cpu       = 10
+      cpu       = 128 // 1024 Units = 1vCPU로 계산하며, 최솟값은 128 Units 입니다
       memory    = 256
       essential = true
       portMappings = [
