@@ -50,3 +50,13 @@ resource "aws_route_table_association" "iac-routing-table-association" {
 resource "aws_route53_zone" "rhea-so" {
   name = "rhea-so.com"
 }
+
+// 7. ECR
+resource "aws_ecr_repository" "iac-ecr" {
+  name                 = "iac-ecr"
+  image_tag_mutability = "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+}
