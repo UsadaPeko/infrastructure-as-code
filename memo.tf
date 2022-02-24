@@ -182,7 +182,7 @@ resource "aws_ecs_task_definition" "memo-ecs-task-definition" {
   container_definitions = jsonencode([
     {
       name      = "memo-ecs-container"
-      image     = "264842458097.dkr.ecr.ap-northeast-2.amazonaws.com/60ff002d7bd529810624885e733a9682303f8270"
+      image     = "${aws_ecr_repository.memo-ecr.repository_url}:60ff002d7bd529810624885e733a9682303f8270"
       cpu       = 256 // 1024 Units = 1vCPU로 계산하며, 최솟값은 128 Units 입니다
                       // 참고: https://dealicious-inc.github.io/2021/05/10/ecs-fargate-benchmark-03.html
       memory    = 512
