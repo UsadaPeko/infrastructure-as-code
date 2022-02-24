@@ -89,7 +89,6 @@ resource "aws_lb" "memo-alb" {
 // 5. Target Group
 resource "aws_lb_target_group" "memo-alb-target-group" {
   name     = "memo-alb-target-group"
-  target_type = "alb"
   port     = 8080
   protocol = "HTTP"
   vpc_id   = aws_vpc.iac-vpc.id
