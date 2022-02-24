@@ -12,7 +12,7 @@ resource "aws_ecr_repository" "memo-ecr" {
 resource "aws_ecr_lifecycle_policy" "memo-ecr-policy" {
   repository = aws_ecr_repository.memo-ecr.name
 
-  policy = {
+  policy = jsonencode({
     "rules": [
       {
         "rulePriority": 1,
@@ -40,7 +40,7 @@ resource "aws_ecr_lifecycle_policy" "memo-ecr-policy" {
         }
       }
     ]
-  }
+  })
 }
 
 // 3. Security Group
