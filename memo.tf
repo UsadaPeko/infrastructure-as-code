@@ -84,3 +84,23 @@ resource "aws_ecs_cluster" "memo-ecs-cluster" {
     Name = "memo-ecs-cluster"
   }
 }
+
+// 6. ECS Task Definition
+resource "aws_ecs_task_definition" "memo-ecs-task-definition" {
+  family = "memo-ecs-task-definition"
+  container_definitions = jsonencode([
+    {
+      name      = "memo-ecs-container"
+	  image = aws_ecr_repository.memo-ecr.repository_url:latest
+      cpu       = 1
+      memory    = 256
+      essential = true
+      portMappings = [
+        {
+          containerPort = 8080
+          hostPort      = 80
+        }
+      ]
+    }
+  ])
+}
