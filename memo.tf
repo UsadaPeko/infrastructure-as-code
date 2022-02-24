@@ -120,7 +120,7 @@ resource "aws_lb_target_group" "memo-alb-target-group" {
     enabled             = true
     interval            = 10
     path                = "/"
-    timeout             = 1
+    timeout             = 2
     matcher             = "200"
     healthy_threshold   = 5
     unhealthy_threshold = 5
