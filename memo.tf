@@ -100,7 +100,6 @@ resource "aws_iam_role_policy_attachment" "ecs-task-execution-role" {
 // 5. Application Load Balancer
 resource "aws_lb" "memo-alb" {
   name               = "memo-alb"
-  internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.memo-security-group.id]
   subnets            = [aws_subnet.iac-subnet-1.id, aws_subnet.iac-subnet-2.id]
@@ -118,6 +117,21 @@ resource "aws_lb_target_group" "memo-alb-target-group" {
   port     = 8080
   protocol = "HTTP"
   vpc_id   = aws_vpc.iac-vpc.id
+  target_type = "ip"
+
+  health_check {
+    enabled             = true
+    interval            = 300
+    path                = "/"
+    timeout             = 60
+    matcher             = "200"
+    healthy_threshold   = 5
+    unhealthy_threshold = 5
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 // 7. Application Load Balancer Listener
