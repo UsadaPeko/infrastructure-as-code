@@ -155,7 +155,7 @@ resource "aws_ecs_service" "memo-ecs-service" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.memo-alb-target-group.arn
-    container_name   = "memo-container"
+    container_name   = "memo-ecs-container"
     container_port   = 8080
   }
 }
