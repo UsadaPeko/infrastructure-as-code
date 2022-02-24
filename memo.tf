@@ -118,8 +118,8 @@ resource "aws_lb" "memo-alb" {
 }
 
 // 6. Target Group
-resource "aws_lb_target_group" "memo-alb-target-group-1" {
-  name     = "memo-alb-target-group-1"
+resource "aws_lb_target_group" "memo-alb-target-group" {
+  name     = "memo-alb-target-group"
   port     = 8080
   protocol = "HTTP"
   vpc_id   = aws_vpc.iac-vpc.id
@@ -148,7 +148,7 @@ resource "aws_lb_listener" "memo-alb-listener" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.memo-alb-target-group-1.arn
+    target_group_arn = aws_lb_target_group.memo-alb-target-group.arn
   }
 }
 
@@ -220,7 +220,7 @@ resource "aws_ecs_service" "memo-ecs-service" {
   }
   
   load_balancer {
-    target_group_arn = aws_lb_target_group.memo-alb-target-group-1.arn
+    target_group_arn = aws_lb_target_group.memo-alb-target-group.arn
     container_name   = "memo-ecs-container"
     container_port   = 8080
   }
