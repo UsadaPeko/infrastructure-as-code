@@ -51,11 +51,11 @@ resource "aws_route_table" "iac-routing-table" {
 }
 
 // 5. Routing Table Association (Subnet + Routing Table)
-resource "aws_route_table_association" "iac-routing-table-association" {
+resource "aws_route_table_association" "iac-routing-table-association-1" {
   subnet_id      = aws_subnet.iac-subnet-1.id
   route_table_id = aws_route_table.iac-routing-table.id
 }
-resource "aws_route_table_association" "iac-routing-table-association" {
+resource "aws_route_table_association" "iac-routing-table-association-2" {
   subnet_id      = aws_subnet.iac-subnet-2.id
   route_table_id = aws_route_table.iac-routing-table.id
 }
