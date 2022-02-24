@@ -71,10 +71,33 @@ resource "aws_security_group" "memo-security-group" {
   }
 }
 
-// 4. Application Load Balancer
+// 4. IAM
+data "aws_iam_policy_document" "ecs-task-execution-role" {
+  version = "2012-10-17"
+  statement {
+    sid     = ""
+    effect  = "Allow"
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["ecs-tasks.amazonaws.com"]
+    }
+  }
+}
+resource "aws_iam_role" "ecs-task-execution-role" {
+  name               = "ecs-staging-execution-role"
+  assume_role_policy = data.aws_iam_policy_document.ecs-task-execution-role.json
+}
+resource "aws_iam_role_policy_attachment" "ecs-task-execution-role" {
+  role       = aws_iam_role.ecs-task-execution-role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+
+// 5. Application Load Balancer
 resource "aws_lb" "memo-alb" {
   name               = "memo-alb"
-  internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.memo-security-group.id]
   subnets            = [aws_subnet.iac-subnet-1.id, aws_subnet.iac-subnet-2.id]
@@ -86,15 +109,30 @@ resource "aws_lb" "memo-alb" {
   }
 }
 
-// 5. Target Group
-resource "aws_lb_target_group" "memo-alb-target-group" {
-  name     = "memo-alb-target-group"
+// 6. Target Group
+resource "aws_lb_target_group" "memo-alb-target-group-1" {
+  name     = "memo-alb-target-group-1"
   port     = 8080
   protocol = "HTTP"
   vpc_id   = aws_vpc.iac-vpc.id
+  target_type = "ip"
+
+  health_check {
+    enabled             = true
+    interval            = 300
+    path                = "/"
+    timeout             = 60
+    matcher             = "200"
+    healthy_threshold   = 5
+    unhealthy_threshold = 5
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
-// 6. Application Load Balancer Listener
+// 7. Application Load Balancer Listener
 resource "aws_lb_listener" "memo-alb-listener" {
   load_balancer_arn = aws_lb.memo-alb.arn
   port              = "80"
@@ -102,11 +140,11 @@ resource "aws_lb_listener" "memo-alb-listener" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.memo-alb-target-group.arn
+    target_group_arn = aws_lb_target_group.memo-alb-target-group-1.arn
   }
 }
 
-// 7. ECS Cluster
+// 8. ECS Cluster
 resource "aws_ecs_cluster" "memo-ecs-cluster" {
   name = "memo-ecs-cluster"
 
@@ -120,13 +158,31 @@ resource "aws_ecs_cluster" "memo-ecs-cluster" {
   }
 }
 
-// 8. ECS Task Definition
+// 9. ECS Cluster Capacity Providers
+resource "aws_ecs_cluster_capacity_providers" "memo-ecs-cluster-capacity-providers" {
+  cluster_name = aws_ecs_cluster.memo-ecs-cluster.name
+
+  capacity_providers = ["FARGATE"]
+
+  default_capacity_provider_strategy {
+    base              = 1
+    weight            = 100
+    capacity_provider = "FARGATE"
+  }
+}
+
+// 10. ECS Task Definition
 resource "aws_ecs_task_definition" "memo-ecs-task-definition" {
   family = "memo-ecs-task-definition"
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
+  cpu       = 256
+  memory    = 512
+  execution_role_arn = aws_iam_role.ecs-task-execution-role.arn
   container_definitions = jsonencode([
     {
       name      = "memo-ecs-container"
-      image     = "${aws_ecr_repository.memo-ecr.repository_url}:latest"
+      image     = "${aws_ecr_repository.memo-ecr.repository_url}:60ff002d7bd529810624885e733a9682303f8270"
       cpu       = 256 // 1024 Units = 1vCPU로 계산하며, 최솟값은 128 Units 입니다
                       // 참고: https://dealicious-inc.github.io/2021/05/10/ecs-fargate-benchmark-03.html
       memory    = 512
@@ -134,22 +190,29 @@ resource "aws_ecs_task_definition" "memo-ecs-task-definition" {
       portMappings = [
         {
           containerPort = 8080
-          hostPort      = 80
+          hostPort      = 8080
         }
       ]
     }
   ])
 }
 
-// 9. ECS Service
+// 11. ECS Service
 resource "aws_ecs_service" "memo-ecs-service" {
   name            = "memo-ecs-service"
   cluster         = aws_ecs_cluster.memo-ecs-cluster.id
   task_definition = aws_ecs_task_definition.memo-ecs-task-definition.arn
   desired_count   = 1
+  launch_type     = "FARGATE"
 
+  network_configuration {
+    security_groups    = [aws_security_group.memo-security-group.id]
+    subnets            = [aws_subnet.iac-subnet-1.id, aws_subnet.iac-subnet-2.id]
+    assign_public_ip = true
+  }
+  
   load_balancer {
-    target_group_arn = aws_lb_target_group.memo-alb-target-group.arn
+    target_group_arn = aws_lb_target_group.memo-alb-target-group-1.arn
     container_name   = "memo-ecs-container"
     container_port   = 8080
   }
