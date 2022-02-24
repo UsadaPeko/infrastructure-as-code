@@ -138,6 +138,8 @@ resource "aws_ecs_task_definition" "memo-ecs-task-definition" {
   family = "memo-ecs-task-definition"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
+  cpu       = 256
+  memory    = 512
   container_definitions = jsonencode([
     {
       name      = "memo-ecs-container"
