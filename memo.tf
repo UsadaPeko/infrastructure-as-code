@@ -91,7 +91,7 @@ resource "aws_ecs_task_definition" "memo-ecs-task-definition" {
   container_definitions = jsonencode([
     {
       name      = "memo-ecs-container"
-      image = aws_ecr_repository.memo-ecr.repository_url:latest
+      image     = "${aws_ecr_repository.memo-ecr.repository_url}:latest"
       cpu       = 1
       memory    = 256
       essential = true
