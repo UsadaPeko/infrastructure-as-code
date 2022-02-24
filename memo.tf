@@ -175,6 +175,12 @@ resource "aws_ecs_task_definition" "memo-ecs-task-definition" {
                       // 참고: https://dealicious-inc.github.io/2021/05/10/ecs-fargate-benchmark-03.html
       memory    = 512
       essential = true
+      portMappings = [
+        {
+          containerPort = 8080
+          hostPort      = 8080
+        }
+      ]
     }
   ])
 }
