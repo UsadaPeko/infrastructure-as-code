@@ -233,4 +233,8 @@ resource "aws_ecs_service" "memo-ecs-service" {
     container_name   = "memo-ecs-container"
     container_port   = 8080
   }
+  
+  timeouts {
+    delete = "10s"
+  }
 }
