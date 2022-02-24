@@ -124,6 +124,7 @@ resource "aws_lb_target_group" "memo-alb-target-group" {
   protocol = "HTTP"
   vpc_id   = aws_vpc.iac-vpc.id
   target_type = "ip"
+  assign_public_ip = true
 
   health_check {
     enabled             = true
