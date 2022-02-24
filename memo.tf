@@ -63,7 +63,16 @@ resource "aws_security_group" "memo-security-group" {
     from_port        = 8080
     to_port          = 8080
     protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/32"]
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = []
+  }
+
+  ingress {
+    description      = "HTTP"
+    from_port        = 443
+    to_port          = 443
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = []
   }
 
@@ -216,7 +225,7 @@ resource "aws_ecs_service" "memo-ecs-service" {
   network_configuration {
     security_groups    = [aws_security_group.memo-security-group.id]
     subnets            = [aws_subnet.iac-subnet-1.id, aws_subnet.iac-subnet-2.id]
-    assign_public_ip = false
+    assign_public_ip = true
   }
   
   load_balancer {
