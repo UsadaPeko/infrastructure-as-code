@@ -136,6 +136,7 @@ resource "aws_ecs_cluster_capacity_providers" "memo-ecs-cluster-capacity-provide
 // 9. ECS Task Definition
 resource "aws_ecs_task_definition" "memo-ecs-task-definition" {
   family = "memo-ecs-task-definition"
+  requires_compatibilities = ["FARGATE"]
   container_definitions = jsonencode([
     {
       name      = "memo-ecs-container"
