@@ -92,7 +92,7 @@ resource "aws_ecs_task_definition" "memo-ecs-task-definition" {
     {
       name      = "memo-ecs-container"
       image     = "${aws_ecr_repository.memo-ecr.repository_url}:latest"
-      cpu       = 1
+      cpu       = 10
       memory    = 256
       essential = true
       portMappings = [
