@@ -71,7 +71,42 @@ resource "aws_security_group" "memo-security-group" {
   }
 }
 
-// 4. ECS Cluster
+// 4. Application Load Balancer
+resource "aws_lb" "memo-alb" {
+  name               = "memo-alb"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.memo-security-group.id]
+  subnets            = [aws_subnet.iac-subnet-1.id, aws_subnet.iac-subnet-2.id]
+
+  enable_deletion_protection = true
+
+  tags = {
+    Name = "memo-alb"
+  }
+}
+
+// 5. Target Group
+resource "aws_lb_target_group" "memo-alb-target-group" {
+  name     = "memo-alb-target-group"
+  port     = 8080
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.iac-vpc.id
+}
+
+// 6. Application Load Balancer Listener
+resource "aws_lb_listener" "memo-alb-listener" {
+  load_balancer_arn = aws_lb.memo-alb.arn
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.memo-alb-target-group.arn
+  }
+}
+
+// 7. ECS Cluster
 resource "aws_ecs_cluster" "memo-ecs-cluster" {
   name = "memo-ecs-cluster"
 
@@ -85,7 +120,7 @@ resource "aws_ecs_cluster" "memo-ecs-cluster" {
   }
 }
 
-// 6. ECS Task Definition
+// 8. ECS Task Definition
 resource "aws_ecs_task_definition" "memo-ecs-task-definition" {
   family = "memo-ecs-task-definition"
   container_definitions = jsonencode([
@@ -104,4 +139,18 @@ resource "aws_ecs_task_definition" "memo-ecs-task-definition" {
       ]
     }
   ])
+}
+
+// 9. ECS Service
+resource "aws_ecs_service" "memo-ecs-service" {
+  name            = "memo-ecs-service"
+  cluster         = aws_ecs_cluster.memo-ecs-cluster.id
+  task_definition = aws_ecs_task_definition.memo-ecs-task-definition.arn
+  desired_count   = 1
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.memo-alb-target-group.arn
+    container_name   = "memo-ecs-container"
+    container_port   = 8080
+  }
 }
