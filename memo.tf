@@ -256,7 +256,7 @@ resource "aws_route53_record" "memo-domain" {
 resource "aws_appautoscaling_target" "memo-ecs-autoscaling-target" {
   max_capacity       = 3
   min_capacity       = 1
-  resource_id        = "service/${aws_ecs_cluster.memo-ecs-cluster.name}/${aws_ecs_service.memo-ecs-cluster.name}"
+  resource_id        = "service/${aws_ecs_cluster.memo-ecs-cluster.name}/${aws_ecs_service.memo-ecs-service.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 }
