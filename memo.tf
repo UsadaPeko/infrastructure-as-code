@@ -77,7 +77,7 @@ resource "aws_lb" "memo-alb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.memo-security-group.id]
-  subnets            = [for subnet in aws_subnet.iac-subnet : subnet.id]
+  subnets            = [aws_subnet.iac-subnet.id]
 
   enable_deletion_protection = true
 
