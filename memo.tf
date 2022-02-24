@@ -148,11 +148,6 @@ resource "aws_ecs_service" "memo-ecs-service" {
   task_definition = aws_ecs_task_definition.memo-ecs-task-definition.arn
   desired_count   = 1
 
-  network_configuration {
-    subnets = [aws_subnet.iac-subnet-1.id, aws_subnet.iac-subnet-2.id]
-    security_groups = [aws_security_group.memo-security-group.id]
-  }
-
   load_balancer {
     target_group_arn = aws_lb_target_group.memo-alb-target-group.arn
     container_name   = "memo-ecs-container"
