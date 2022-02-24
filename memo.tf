@@ -235,6 +235,6 @@ resource "aws_ecs_service" "memo-ecs-service" {
   }
   
   timeouts {
-    delete: "10s"
+    delete = "10s"
   }
 }
