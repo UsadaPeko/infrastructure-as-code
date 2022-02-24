@@ -137,6 +137,7 @@ resource "aws_ecs_cluster_capacity_providers" "memo-ecs-cluster-capacity-provide
 resource "aws_ecs_task_definition" "memo-ecs-task-definition" {
   family = "memo-ecs-task-definition"
   requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
   container_definitions = jsonencode([
     {
       name      = "memo-ecs-container"
