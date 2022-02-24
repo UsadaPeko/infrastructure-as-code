@@ -120,7 +120,20 @@ resource "aws_ecs_cluster" "memo-ecs-cluster" {
   }
 }
 
-// 8. ECS Task Definition
+// 8. ECS Cluster Capacity Providers
+resource "aws_ecs_cluster_capacity_providers" "memo-ecs-cluster-capacity-providers" {
+  cluster_name = aws_ecs_cluster.memo-ecs-cluster.name
+
+  capacity_providers = ["FARGATE"]
+
+  default_capacity_provider_strategy {
+    base              = 1
+    weight            = 100
+    capacity_provider = "FARGATE"
+  }
+}
+
+// 9. ECS Task Definition
 resource "aws_ecs_task_definition" "memo-ecs-task-definition" {
   family = "memo-ecs-task-definition"
   container_definitions = jsonencode([
@@ -141,7 +154,7 @@ resource "aws_ecs_task_definition" "memo-ecs-task-definition" {
   ])
 }
 
-// 9. ECS Service
+// 10. ECS Service
 resource "aws_ecs_service" "memo-ecs-service" {
   name            = "memo-ecs-service"
   cluster         = aws_ecs_cluster.memo-ecs-cluster.id
