@@ -241,7 +241,7 @@ resource "aws_ecs_service" "memo-ecs-service" {
 
 // 12. Route53
 resource "aws_route53_record" "memo-domain" {
-  zone_id = data.aws_route53_zone.rhea-so.zone_id
+  zone_id = aws_route53_zone.rhea-so.zone_id
   name    = "memo.rhea-so.com"
   type    = "A"
 
