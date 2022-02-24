@@ -111,7 +111,7 @@ resource "aws_lb" "memo-alb" {
 // 6. Target Group
 resource "aws_lb_target_group" "memo-alb-target-group" {
   name     = "memo-alb-target-group"
-  port     = 8080
+  port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.iac-vpc.id
   target_type = "ip"
@@ -189,7 +189,7 @@ resource "aws_ecs_task_definition" "memo-ecs-task-definition" {
       portMappings = [
         {
           containerPort = 8080
-          hostPort      = 8080
+          hostPort      = 80
         }
       ]
     }
