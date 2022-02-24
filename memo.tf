@@ -238,3 +238,57 @@ resource "aws_ecs_service" "memo-ecs-service" {
     delete = "10s"
   }
 }
+
+// 12. Route53
+resource "aws_route53_record" "memo-domain" {
+  zone_id = aws_route53_zone.rhea-so.zone_id
+  name    = "memo.rhea-so.com"
+  type    = "A"
+
+  alias {
+    name                   = aws_lb.memo-alb.dns_name
+    zone_id                = aws_lb.memo-alb.zone_id
+    evaluate_target_health = true
+  }
+}
+
+// 13. Auto Scaling Group
+resource "aws_appautoscaling_target" "memo-ecs-autoscaling-target" {
+  max_capacity       = 3
+  min_capacity       = 1
+  resource_id        = "service/${aws_ecs_cluster.memo-ecs-cluster.name}/${aws_ecs_service.memo-ecs-service.name}"
+  scalable_dimension = "ecs:service:DesiredCount"
+  service_namespace  = "ecs"
+}
+
+resource "aws_appautoscaling_policy" "memo-ecs-autoscaling-policy-memory" {
+  name               = "memory-autoscaling"
+  policy_type        = "TargetTrackingScaling"
+  resource_id        = aws_appautoscaling_target.memo-ecs-autoscaling-target.resource_id
+  scalable_dimension = aws_appautoscaling_target.memo-ecs-autoscaling-target.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.memo-ecs-autoscaling-target.service_namespace
+
+  target_tracking_scaling_policy_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ECSServiceAverageMemoryUtilization"
+    }
+
+    target_value = 80
+  }
+}
+
+resource "aws_appautoscaling_policy" "memo-ecs-autoscaling-policy-cpu" {
+  name               = "cpu-autoscaling"
+  policy_type        = "TargetTrackingScaling"
+  resource_id        = aws_appautoscaling_target.memo-ecs-autoscaling-target.resource_id
+  scalable_dimension = aws_appautoscaling_target.memo-ecs-autoscaling-target.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.memo-ecs-autoscaling-target.service_namespace
+
+  target_tracking_scaling_policy_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ECSServiceAverageCPUUtilization"
+    }
+
+    target_value = 60
+  }
+}
