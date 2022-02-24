@@ -77,7 +77,7 @@ resource "aws_lb" "memo-alb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.memo-security-group.id]
-  subnets            = [aws_subnet.iac-subnet.id]
+  subnets            = [aws_subnet.iac-subnet-1.id, aws_subnet.iac-subnet-2.id]
 
   enable_deletion_protection = true
 
@@ -151,7 +151,7 @@ resource "aws_ecs_service" "memo-ecs-service" {
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets = [aws_subnet.iac-subnet.id]
+    subnets = [aws_subnet.iac-subnet-1.id, aws_subnet.iac-subnet-2.id]
     security_groups = [aws_security_group.memo-security-group.id]
   }
 

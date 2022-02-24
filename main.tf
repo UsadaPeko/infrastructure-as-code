@@ -17,12 +17,22 @@ resource "aws_internet_gateway" "iac-igw" {
 }
 
 // 3. Subnet
-resource "aws_subnet" "iac-subnet" {
+resource "aws_subnet" "iac-subnet-1" {
   vpc_id     = aws_vpc.iac-vpc.id
   cidr_block = "10.0.1.0/24"
+  availability_zone = "ap-northeast-2a"
 
   tags = {
-    Name = "iac-subnet"
+    Name = "iac-subnet-1"
+  }
+}
+resource "aws_subnet" "iac-subnet-2" {
+  vpc_id     = aws_vpc.iac-vpc.id
+  cidr_block = "10.0.2.0/24"
+  availability_zone = "ap-northeast-2c"
+
+  tags = {
+    Name = "iac-subnet-2"
   }
 }
 
@@ -42,7 +52,7 @@ resource "aws_route_table" "iac-routing-table" {
 
 // 5. Routing Table Association (Subnet + Routing Table)
 resource "aws_route_table_association" "iac-routing-table-association" {
-  subnet_id      = aws_subnet.iac-subnet.id
+  subnet_id      = aws_subnet.iac-subnet-1.id
   route_table_id = aws_route_table.iac-routing-table.id
 }
 
