@@ -85,12 +85,10 @@ data "aws_iam_policy_document" "ecs-task-execution-role" {
     }
   }
 }
-
 resource "aws_iam_role" "ecs-task-execution-role" {
   name               = "ecs-staging-execution-role"
   assume_role_policy = data.aws_iam_policy_document.ecs-task-execution-role.json
 }
-
 resource "aws_iam_role_policy_attachment" "ecs-task-execution-role" {
   role       = aws_iam_role.ecs-task-execution-role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
@@ -112,8 +110,8 @@ resource "aws_lb" "memo-alb" {
 }
 
 // 6. Target Group
-resource "aws_lb_target_group" "memo-alb-target-group" {
-  name     = "memo-alb-target-group"
+resource "aws_lb_target_group" "memo-alb-target-group-1" {
+  name     = "memo-alb-target-group-1"
   port     = 8080
   protocol = "HTTP"
   vpc_id   = aws_vpc.iac-vpc.id
@@ -142,7 +140,7 @@ resource "aws_lb_listener" "memo-alb-listener" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.memo-alb-target-group.arn
+    target_group_arn = aws_lb_target_group.memo-alb-target-group-1.arn
   }
 }
 
@@ -184,7 +182,7 @@ resource "aws_ecs_task_definition" "memo-ecs-task-definition" {
   container_definitions = jsonencode([
     {
       name      = "memo-ecs-container"
-      image     = "${aws_ecr_repository.memo-ecr.repository_url}:latest"
+      image     = "${aws_ecr_repository.memo-ecr.repository_url}:60ff002d7bd529810624885e733a9682303f8270"
       cpu       = 256 // 1024 Units = 1vCPU로 계산하며, 최솟값은 128 Units 입니다
                       // 참고: https://dealicious-inc.github.io/2021/05/10/ecs-fargate-benchmark-03.html
       memory    = 512
@@ -214,7 +212,7 @@ resource "aws_ecs_service" "memo-ecs-service" {
   }
   
   load_balancer {
-    target_group_arn = aws_lb_target_group.memo-alb-target-group.arn
+    target_group_arn = aws_lb_target_group.memo-alb-target-group-1.arn
     container_name   = "memo-ecs-container"
     container_port   = 8080
   }
