@@ -55,6 +55,10 @@ resource "aws_route_table_association" "iac-routing-table-association" {
   subnet_id      = aws_subnet.iac-subnet-1.id
   route_table_id = aws_route_table.iac-routing-table.id
 }
+resource "aws_route_table_association" "iac-routing-table-association" {
+  subnet_id      = aws_subnet.iac-subnet-2.id
+  route_table_id = aws_route_table.iac-routing-table.id
+}
 
 // 6. Route53
 resource "aws_route53_zone" "rhea-so" {
