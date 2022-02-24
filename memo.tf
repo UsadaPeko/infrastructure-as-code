@@ -94,7 +94,6 @@ resource "aws_iam_role_policy_attachment" "ecs-task-execution-role" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
-
 // 5. Application Load Balancer
 resource "aws_lb" "memo-alb" {
   name               = "memo-alb"
@@ -119,9 +118,9 @@ resource "aws_lb_target_group" "memo-alb-target-group" {
 
   health_check {
     enabled             = true
-    interval            = 300
+    interval            = 10
     path                = "/"
-    timeout             = 60
+    timeout             = 1
     matcher             = "200"
     healthy_threshold   = 5
     unhealthy_threshold = 5
