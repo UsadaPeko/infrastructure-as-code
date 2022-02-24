@@ -63,7 +63,7 @@ resource "aws_security_group" "memo-security-group" {
     from_port        = 8080
     to_port          = 8080
     protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
+    cidr_blocks      = ["10.0.0.0/16"]
     ipv6_cidr_blocks = []
   }
 
