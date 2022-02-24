@@ -119,7 +119,7 @@ resource "aws_lb" "memo-alb" {
   security_groups    = [aws_security_group.memo-security-group.id]
   subnets            = [aws_subnet.iac-subnet-1.id, aws_subnet.iac-subnet-2.id]
 
-  enable_deletion_protection = true
+  enable_deletion_protection = false
 
   tags = {
     Name = "memo-alb"
