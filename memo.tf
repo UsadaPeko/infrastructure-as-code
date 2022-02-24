@@ -149,7 +149,7 @@ resource "aws_ecs_service" "memo-ecs-service" {
   task_definition = aws_ecs_task_definition.memo-ecs-task-definition.arn
   desired_count   = 1
   launch_type     = "FARGATE"
-  security_groups = ["memo-security-group"]
+  security_groups = [aws_security_group.memo-security-group.id]
 
   load_balancer {
     target_group_arn = aws_lb_target_group.memo-alb-target-group.arn
