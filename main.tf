@@ -66,6 +66,14 @@ resource "aws_route53_zone" "rhea-so" {
   force_destroy = true
 }
 
+resource "aws_route53_record" "memo-domain" {
+  zone_id = aws_route53_zone.rhea-so.zone_id
+  name    = "atlantis.rhea-so.com"
+  type    = "A"
+  ttl     = "300"
+  records = ["52.78.144.248"] // Atlantis EC2 (Terraform을 통해 만들지 않았음)
+}
+
 // 7. ECR
 # resource "aws_ecr_repository" "iac-ecr" {
 #   name                 = "iac-ecr"
