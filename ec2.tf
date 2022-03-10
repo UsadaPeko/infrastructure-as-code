@@ -9,7 +9,7 @@ resource "aws_security_group" "iac-security-group" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = ["39.7.28.205/32"]
+    cidr_blocks      = ["39.7.24.115/32"]
     ipv6_cidr_blocks = []
   }
 
@@ -52,8 +52,13 @@ resource "aws_eip" "iac-eip" {
 // 4. Route53
 resource "aws_route53_record" "iac-route53" {
   zone_id = aws_route53_zone.rhea-so.zone_id
-  name    = "rhea-so.com"
+  name    = "ec2.rhea-so.com"
   type    = "A"
   ttl     = "300"
   records = [aws_eip.iac-eip.public_ip]
+}
+
+output "iac-eip" {
+  value       = aws_eip.iac-eip.public_ip
+  description = "Infrastructure as Code - ec2.tf - EIP"
 }
