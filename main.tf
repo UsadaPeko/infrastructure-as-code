@@ -61,9 +61,9 @@ resource "aws_route_table_association" "iac-routing-table-association-2" {
 }
 
 // 6. Route53
-resource "aws_route53_zone" "rhea-so" {
-  name = "rhea-so.com"
-}
+# resource "aws_route53_zone" "rhea-so" {
+#   name = "rhea-so.com"
+# }
 
 // 7. ECR
 resource "aws_ecr_repository" "iac-ecr" {
