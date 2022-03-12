@@ -34,8 +34,9 @@ resource "aws_mq_broker" "rabbitmq" {
   engine_version     = "3.8.6"
   host_instance_type = "mq.t3.micro"
 
-  publicly_accessible = true
+  publicly_accessible = true // 이게 true면, sequrity groups 옵션과 함께 사용할 수 없으므로 주의
   subnet_ids = [aws_subnet.iac-subnet-1.id]
+  // security_groups    = [aws_security_group.rabbitmq-security-group.id]
 
   user {
     username = "rhea-so"
