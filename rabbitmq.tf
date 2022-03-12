@@ -36,7 +36,6 @@ resource "aws_mq_broker" "rabbitmq" {
 
   publicly_accessible = true
   subnet_ids = [aws_subnet.iac-subnet-1.id]
-  security_groups    = [aws_security_group.rabbitmq-security-group.id]
 
   user {
     username = "rhea-so"
