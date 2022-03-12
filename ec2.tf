@@ -62,3 +62,34 @@ output "iac-eip" {
   value       = aws_eip.iac-eip.public_ip
   description = "Infrastructure as Code - ec2.tf - EIP"
 }
+
+// 5. SNS
+resource "aws_sns_topic" "iac-sns-topic" {
+  name = "iac-sns-topic"
+}
+resource "aws_sns_topic_subscription" "iac-sns-topic-subscription" {
+  topic_arn = aws_sns_topic.iac-sns-topic.arn
+  protocol  = "email"
+  endpoint  = "jeonghyeon.rhea@gmail.com"
+}
+
+// 6. CloudWatch
+resource "aws_cloudwatch_metric_alarm" "iac-cloudwatch-ec2-cpu-usage" {
+  alarm_name                = "iac-cloudwatch-ec2-cpu-usage"
+  comparison_operator       = "GreaterThanOrEqualToThreshold"
+  evaluation_periods        = "2"
+  metric_name               = "CPUUtilization"
+  namespace                 = "AWS/EC2"
+  period                    = "120" #seconds
+  statistic                 = "Average"
+  threshold                 = "0"
+  alarm_description         = "This metric monitors ec2 cpu utilization"
+  insufficient_data_actions = []
+
+  alarm_actions       = [aws_sns_topic.iac-sns-topic.arn]
+  ok_actions          = [aws_sns_topic.iac-sns-topic.arn]
+
+  dimensions = {
+    InstanceId = aws_instance.iac-ec2.id
+  }
+}
