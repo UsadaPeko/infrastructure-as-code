@@ -35,7 +35,7 @@ resource "aws_mq_broker" "rabbitmq" {
   host_instance_type = "mq.t3.micro"
 
   publicly_accessible = true
-  subnet_id = aws_subnet.iac-subnet-1.id
+  subnet_ids = [aws_subnet.iac-subnet-1.id]
   security_groups    = [aws_security_group.rabbitmq-security-group.id]
 
   user {
