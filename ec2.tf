@@ -70,12 +70,12 @@ resource "aws_sns_topic" "iac-sns-topic" {
 resource "aws_sns_topic_subscription" "iac-sns-topic-subscription" {
   topic_arn = aws_sns_topic.iac-sns-topic.arn
   protocol  = "email"
-  endpoint  = "jeonghyeon.rhea@gmail.com;gameboy5141@gmail.com"
+  endpoint  = "jeonghyeon.rhea@gmail.com"
 }
 
 // 6. CloudWatch
 resource "aws_cloudwatch_metric_alarm" "iac-cloudwatch-ec2-cpu-usage" {
-  alarm_name                = "cpu-utilization"
+  alarm_name                = "iac-cloudwatch-ec2-cpu-usage"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "2"
   metric_name               = "CPUUtilization"
