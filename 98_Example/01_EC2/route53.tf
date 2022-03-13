@@ -1,4 +1,6 @@
-module "route53-rhea-so"{ source = "../02_Route53/rhea-so.com" }
+module "route53-rhea-so"{
+  source = "../02_Route53/rhea-so.com"
+}
 
 resource "aws_route53_record" "rhea-so" {
   zone_id = module.rhea-so.zone_id
