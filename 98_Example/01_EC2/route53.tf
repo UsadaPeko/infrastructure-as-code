@@ -1,5 +1,5 @@
 module "route53-rhea-so"{
-  source = "../02_Route53/rhea-so.com"
+  source = "../../02_Route53/rhea-so.com"
 }
 
 resource "aws_route53_record" "rhea-so" {
