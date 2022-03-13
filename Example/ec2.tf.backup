@@ -58,11 +58,6 @@ resource "aws_route53_record" "iac-route53" {
   records = [aws_eip.iac-eip.public_ip]
 }
 
-output "iac-eip" {
-  value       = aws_eip.iac-eip.public_ip
-  description = "Infrastructure as Code - ec2.tf - EIP"
-}
-
 // 5. SNS
 resource "aws_sns_topic" "iac-sns-topic" {
   name = "iac-sns-topic"
@@ -93,4 +88,10 @@ resource "aws_cloudwatch_metric_alarm" "iac-cloudwatch-ec2-cpu-usage" {
   dimensions = {
     InstanceId = aws_instance.iac-ec2.id
   }
+}
+
+// Output
+output "iac-eip" {
+  value       = aws_eip.iac-eip.public_ip
+  description = "Infrastructure as Code - ec2.tf - EIP"
 }
