@@ -4,4 +4,5 @@ resource "aws_route53_record" "domain" {
   type = var.type
   ttl = var.ttl
   records = [var.target]
+  allow_overwrite = true
 }
