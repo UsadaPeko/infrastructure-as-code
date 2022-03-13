@@ -3,6 +3,6 @@ resource "aws_route53_zone" "rhea-so" {
   force_destroy = true
 }
 
-output zone-id {
+output zone_id {
   value = aws_route53_zone.rhea-so.zone_id
 }
