@@ -7,11 +7,11 @@ module "rhea-so" {
 }
 
 # Environments
-# module "production" {
-# 	source = "./modules/environment/production"
+module "production" {
+	source = "./modules/environment/production"
 
-# 	route53_zone_id = module.rhea-so.zone_id
-# }
+	route53_zone_id = module.rhea-so.zone_id
+}
 
 module "staging" {
 	source = "./modules/environment/staging"
