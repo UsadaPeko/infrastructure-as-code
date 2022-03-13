@@ -23,7 +23,7 @@
 
 
 module "vpc" {
-  source = "../../01_Common/02_VPC"
+  source = "../../modules/vpc"
 
   name = "test"
 }
