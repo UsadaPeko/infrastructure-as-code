@@ -1,4 +1,4 @@
-module "route53-rhea-so"{
+module "rhea-so"{
   source = "../../02_Route53/rhea-so.com"
 }
 
