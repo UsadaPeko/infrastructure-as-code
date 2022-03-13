@@ -6,18 +6,15 @@ version: 3
 automerge: true
 delete_source_branch_on_merge: false
 projects:
-- dir: 00_Environment/01_Dev/
-  workspace: dev
+- dir: 00_Environment/01_Dev
   autoplan:
     when_modified: ["**/*.tf", "*.tf*"]
     enabled: true
-- dir: 00_Environment/02_Staging/
-  workspace: staging
+- dir: 00_Environment/02_Staging
   autoplan:
     when_modified: ["**/*.tf", "*.tf*"]
     enabled: true
-- dir: 00_Environment/03_Production/
-  workspace: production
+- dir: 00_Environment/03_Production
   autoplan:
     when_modified: ["**/*.tf", "*.tf*"]
     enabled: true
