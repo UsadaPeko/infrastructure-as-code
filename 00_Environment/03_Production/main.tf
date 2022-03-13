@@ -10,5 +10,5 @@ module "atlantis-rhea-so" {
 
   zone_id = module.rhea-so.zone_id
   name = "atlantis.rhea-so.com"
-  target = "52.78.144.248"
+  target = "52.78.144.248" // Atlantis를 통해 만든 EC2가 아니어서, 직접 EC2 IP를 적어줌
 }
