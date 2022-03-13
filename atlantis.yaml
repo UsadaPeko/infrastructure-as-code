@@ -4,4 +4,6 @@
 # - 꼬이는 문제 예시: https://github.com/rhea-so-lab/Infrastructure-as-Code/pull/91 (dir: 가 여러개 있는 것을 볼 수 있음)
 version: 3
 projects:
-- dir: .
+- dir: 00_Environment/01_Dev
+- dir: 00_Environment/02_Staging
+- dir: 00_Environment/03_Production
