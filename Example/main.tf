@@ -78,7 +78,7 @@ resource "aws_db_subnet_group" "iac-db-subnet-group" {
 // 2. RDS Cluster
 resource "aws_rds_cluster" "iac-rds-cluster" {
   cluster_identifier      = "iac-rds-cluster"
-  availability_zones      = ["ap-northeast-2a", "ap-northeast-2b", "ap-northeast-2c"]
+  availability_zones      = ["ap-northeast-2a", "ap-northeast-2c"]
   database_name           = "iac-rds"
   master_username         = "rheaso"
   master_password         = "1234qwer"
