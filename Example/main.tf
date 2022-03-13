@@ -2,8 +2,8 @@ resource "aws_rds_cluster" "default" {
   cluster_identifier      = "aurora-cluster-demo"
   availability_zones      = ["ap-northeast-2a", "ap-northeast-2b", "ap-northeast-2c"]
   database_name           = "mydb"
-  master_username         = "foo"
-  master_password         = "bar"
+  master_username         = "rhea-so"
+  master_password         = "1234qwer"
   backup_retention_period = 5
   preferred_backup_window = "07:00-09:00"
 }
