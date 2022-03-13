@@ -28,7 +28,7 @@ resource "aws_api_gateway_method" "iac-api-gateway-method-google-enter" {
 }
 
 # /google/enter is proxy into google.com
-resource "aws_api_gateway_integration" "integration" {
+resource "aws_api_gateway_integration" "iac-api-gateway-integration" {
   rest_api_id = "${aws_api_gateway_rest_api.iac-api-gateway.id}"
   resource_id = "${aws_api_gateway_resource.iac-api-gateway-resource-google-enter.id}"
   http_method = "${aws_api_gateway_method.iac-api-gateway-method-google-enter.http_method}"
