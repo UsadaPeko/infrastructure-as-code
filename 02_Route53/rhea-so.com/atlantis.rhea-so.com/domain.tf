@@ -1,6 +1,4 @@
-module "rhea-so"{
-  source = "../"
-}
+module "rhea-so"{ source = "../" }
 
 resource "aws_route53_record" "atlantis-rhea-so" {
   zone_id = module.rhea-so.zone_id
