@@ -112,7 +112,7 @@ resource "aws_eip" "iac-eip" {
 }
 
 // 4. Route53
-resource "aws_route53_record" "iac-route53" {
+resource "aws_route53_record" "rhea-so" {
   zone_id = aws_route53_zone.rhea-so.zone_id
   name    = "ec2.rhea-so.com"
   type    = "A"
