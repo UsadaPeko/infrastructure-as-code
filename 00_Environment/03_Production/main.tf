@@ -1,14 +1,13 @@
 # All services in this repository are created here
-module "rhea-so" {
-  source = "../../01_Common/01_Route53/01_Zone"
-
-  name = "rhea-so.com"
+resource "aws_route53_zone" "rhea-so" {
+  name = "rhea-so"
+  force_destroy = true
 }
 
-module "atlantis-rhea-so" {
-  source = "../../01_Common/01_Route53/02_Record"
-
-  zone_id = module.rhea-so.zone_id
+resource "aws_route53_record" "atlantis-rhea-so" {
+  zone_id = aws_route53_zone.rhea-so.zone_id
   name = "atlantis.rhea-so.com"
-  target = "52.78.144.248" # Atlantis를 통해 만든 EC2가 아니어서, 직접 EC2 IP를 적어줌
+  type = "A"
+  ttl = "300"
+  records = ["52.78.144.248"]
 }
