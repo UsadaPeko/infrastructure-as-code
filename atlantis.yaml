@@ -7,17 +7,17 @@ automerge: true
 delete_source_branch_on_merge: false
 projects:
 - dir: 00_Environment/01_Dev
-  workspace: infrastructure-as-code
+  workspace: dev
   autoplan:
     when_modified: ["**/*.tf", "*.tf*"]
     enabled: true
 - dir: 00_Environment/02_Staging
-  workspace: infrastructure-as-code
+  workspace: staging
   autoplan:
     when_modified: ["**/*.tf", "*.tf*"]
     enabled: true
 - dir: 00_Environment/03_Production
-  workspace: infrastructure-as-code
+  workspace: production
   autoplan:
     when_modified: ["**/*.tf", "*.tf*"]
     enabled: true
