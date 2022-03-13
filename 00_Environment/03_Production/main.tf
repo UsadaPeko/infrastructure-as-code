@@ -22,8 +22,8 @@
 # }
 
 
-module "vpc-1" {
+module "vpc" {
   source = "../../01_Common/02_VPC"
 
-  name = "test-1"
+  name = "test"
 }
