@@ -48,6 +48,14 @@ The joint work between the developer and the operator has increased
 
 ![my use case](./images/my_use_case.png)
 
+### Directory Archiecture
+
+* main.tf
+* modules
+  * aws - Raw modules that can control AWS
+  * services - Service modules created through a combination of AWS modules
+  * environment - Define how to use Service modules
+
 ## Reference
 
 * [hashicorp/aws docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
