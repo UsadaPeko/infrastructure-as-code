@@ -21,7 +21,7 @@
 #   target = "172.217.31.174" # Google Test
 # }
 
-module "vpc" {
+module "vpc-1" {
   source = "./modules/vpc"
 
   name = "test-1"
