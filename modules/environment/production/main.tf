@@ -20,14 +20,14 @@
 #   target = "172.217.31.174" # Google Test
 # }
 
-module "vpc-1" {
+module "vpc" {
   source = "../../aws/vpc"
 
-  name = "test-1"
+  name = "test"
 }
 
 module "vpc-2" {
   source = "../../aws/vpc"
 
-  name = "test-2"
+  name = "test-3"
 }
