@@ -39,6 +39,9 @@ The joint work between the developer and the operator has increased
 
 ![introduce 2](./Images/introduce_2.png)
 
+[Example: Create EC2 Instance - Code](./Example/ec2.tf.backup)  
+[Example: Create EC2 Instance - Pull Request](https://github.com/rhea-so-lab/Infrastructure-as-Code/pull/66)
+
 ## My use case
 
 ![my use case](./Images/my_use_case.png)
