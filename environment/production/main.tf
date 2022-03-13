@@ -22,8 +22,14 @@
 # }
 
 
-module "vpc" {
+module "vpc-1" {
   source = "../../modules/vpc"
 
-  name = "test"
+  name = "test-1"
+}
+
+module "vpc-2" {
+  source = "../../modules/vpc"
+
+  name = "test-2"
 }
