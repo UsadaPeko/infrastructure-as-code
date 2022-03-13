@@ -20,3 +20,9 @@
 #   name = "google.rhea-so.com"
 #   target = "172.217.31.174" # Google Test
 # }
+
+module "vpc" {
+  source = "../../modules/vpc"
+
+  name = "test"
+}
