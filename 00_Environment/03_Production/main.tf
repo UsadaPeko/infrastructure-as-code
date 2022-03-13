@@ -5,10 +5,6 @@ module "rhea-so" {
   name = "rhea-so.com"
 }
 
-output "test" {
-	value = module.rhea-so.zone_id
-}
-
 # module "atlantis-rhea-so" {
 #   source = "../../01_Common/01_Route53/02_Record"
 
