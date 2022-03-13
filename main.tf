@@ -1,8 +1,12 @@
 # All services in this repository are created here
-# module "production" {
-# 	source = "./modules/environment/production"
-# }
+module "production" {
+	source = "./modules/environment/production"
+}
 
-# module "staging" {
-# 	source = "./modules/environment/staging"
-# }
+module "staging" {
+	source = "./modules/environment/staging"
+}
+
+module "dev" {
+	source = "./modules/environment/dev"
+}
