@@ -2,3 +2,7 @@
 module "production" {
 	source = "./modules/environment/production"
 }
+
+module "staging" {
+	source = "./modules/environment/staging"
+}
