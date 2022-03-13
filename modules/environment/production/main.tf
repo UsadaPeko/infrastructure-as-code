@@ -12,13 +12,13 @@ module "atlantis-rhea-so" {
   target = "52.78.144.248" # Atlantis를 통해 만든 EC2가 아니어서, 직접 EC2 IP를 적어줌
 }
 
-# module "google-rhea-so" {
-#   source = "../../aws/route53/record"
+module "google-rhea-so" {
+  source = "../../aws/route53/record"
 
-#   zone_id = module.rhea-so.zone_id
-#   name = "google.rhea-so.com"
-#   target = "172.217.31.174" # Google Test
-# }
+  zone_id = module.rhea-so.zone_id
+  name = "google.rhea-so.com"
+  target = "172.217.31.174" # Google Test
+}
 
 module "production-vpc" {
   source = "../../aws/vpc"
