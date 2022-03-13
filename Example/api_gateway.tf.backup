@@ -1,3 +1,5 @@
+// ! 사용하지 말 것 -  리소스들이 원하는대로 안만들어짐
+
 // 1. API Gateway
 resource "aws_api_gateway_rest_api" "iac-api-gateway" {
   name = "iac-api-gateway"
@@ -35,10 +37,4 @@ resource "aws_api_gateway_integration" "iac-api-gateway-integration" {
   integration_http_method = "GET" # GET으로 Proxy
   type                    = "HTTP_PROXY"
   uri                     = "http://google.com"
-}
-
-// Output
-output "iac-api-gateway" {
-  value       = "https://${aws_api_gateway_rest_api.iac-api-gateway.id}.execute-api.ap-northeast-2.amazonaws.com"
-  description = "Infrastructure as Code - api_gateway.tf"
 }
