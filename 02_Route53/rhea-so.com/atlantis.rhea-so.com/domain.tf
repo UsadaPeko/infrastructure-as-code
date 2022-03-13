@@ -1,10 +1,9 @@
-resource "aws_route53_zone" "rhea-so" {
-  name = "rhea-so.com"
-  force_destroy = true
+module "rhea-so"{
+  source = "../"
 }
 
-resource "aws_route53_record" "memo-domain" {
-  zone_id = aws_route53_zone.rhea-so.zone_id
+resource "aws_route53_record" "atlantis-rhea-so" {
+  zone_id = module.rhea-so.zone_id
   name    = "atlantis.rhea-so.com"
   type    = "A"
   ttl     = "300"

@@ -1,10 +1,10 @@
 # Infrastructure as Code
 
-![AMAZING](./Images/amazing.jpeg)
+![AMAZING](./99_Images/amazing.jpeg)
 
 ## What is this?
 
-![introduce 1](./Images/introduce_1.png)
+![introduce 1](./99_Images/introduce_1.png)
 
 Infrastructure as Code (IaC) is a way to process infrastructure configurations as if they were programming software
 
@@ -39,14 +39,14 @@ The joint work between the developer and the operator has increased
 
 ## How to use?
 
-![introduce 2](./Images/introduce_2.png)
+![introduce 2](./99_Images/introduce_2.png)
 
 [Example: Create EC2 Instance - Code](./Example/ec2.tf.backup)  
 [Example: Create EC2 Instance - Pull Request](https://github.com/rhea-so-lab/Infrastructure-as-Code/pull/66)
 
 ## My use case
 
-![my use case](./Images/my_use_case.png)
+![my use case](./99_Images/my_use_case.png)
 
 ## Reference
 
