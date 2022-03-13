@@ -21,6 +21,6 @@
 #   target = "172.217.31.174" # Google Test
 # }
 
-module {
+module "production" {
 	source = "./environment/production"
 }
