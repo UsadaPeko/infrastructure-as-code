@@ -52,3 +52,15 @@ The joint work between the developer and the operator has increased
 
 * [hashicorp/aws docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
 * [how to install](https://blog.naver.com/rhea31/222654945513)
+
+## Support Git History
+
+### Credits
+
+Based on these amazing projects:
+
+* rhea by [JeongHyeon Kim](https://github.com/rhea-so)
+
+### License
+
+none
