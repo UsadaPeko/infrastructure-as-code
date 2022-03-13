@@ -2,11 +2,6 @@
 
 # 이 파일이 없으면, dir를 여러개로 인식해서 꼬이는 문제가 발생한다.
 # - 꼬이는 문제 예시: https://github.com/rhea-so-lab/Infrastructure-as-Code/pull/91 (dir: 가 여러개 있는 것을 볼 수 있음)
-version: 2
-automerge: true
-delete_source_branch_on_merge: false
-pipelines:
-  plan:
-    on_push:
-      enabled: true
-      when_modified: ["00_Environment/**/*.tf"]
+version: 3
+projects:
+- dir: 00_Environment/03_Production
