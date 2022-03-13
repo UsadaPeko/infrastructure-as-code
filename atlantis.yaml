@@ -6,7 +6,13 @@ version: 3
 projects:
 - dir: 00_Environment/01_Dev
   workspace: dev
+  autoplan:
+    when_modified: ["**/*.tf", "*.tf*"]
 - dir: 00_Environment/02_Staging
   workspace: staging
+  autoplan:
+    when_modified: ["**/*.tf", "*.tf*"]
 - dir: 00_Environment/03_Production
   workspace: production
+  autoplan:
+    when_modified: ["**/*.tf", "*.tf*"]
