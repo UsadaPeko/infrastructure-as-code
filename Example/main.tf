@@ -15,6 +15,7 @@ resource "aws_rds_cluster_instance" "test1" {
   instance_class     = "db.t3.small"
   engine             = aws_rds_cluster.default.engine
   engine_version     = aws_rds_cluster.default.engine_version
+  publicly_accessible = true
 }
 
 resource "aws_rds_cluster_instance" "test2" {
@@ -24,6 +25,7 @@ resource "aws_rds_cluster_instance" "test2" {
   instance_class     = "db.t3.small"
   engine             = aws_rds_cluster.default.engine
   engine_version     = aws_rds_cluster.default.engine_version
+  publicly_accessible = true
 }
 
 // Output
