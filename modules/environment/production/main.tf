@@ -23,11 +23,5 @@
 module "vpc" {
   source = "../../aws/vpc"
 
-  name = "test"
-}
-
-module "vpc-2" {
-  source = "../../aws/vpc"
-
-  name = "test-3"
+  name = "production-vpc"
 }
