@@ -1,5 +1,7 @@
 # Infrastructure as Code
 
+![AMAZING](./Images/amazing.jpeg)
+
 ## What is this?
 
 ![introduce 1](./Images/introduce_1.png)
