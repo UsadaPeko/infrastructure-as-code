@@ -9,4 +9,3 @@ projects:
 - dir: 00_Environment/01_Dev
 - dir: 00_Environment/02_Staging
 - dir: 00_Environment/03_Production
-  apply_requirements: ["approved"]
