@@ -18,7 +18,7 @@ module "ec2" {
   source = "../../aws/ec2"
 
   name = "test"
-  subnet_id = module.vpc.id
+  subnet_id = module.vpc.subnet_id
   security_group_ids = [module.home-sg.id]
 }
 
