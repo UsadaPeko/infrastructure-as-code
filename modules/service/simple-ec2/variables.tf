@@ -2,6 +2,10 @@ variable "name" {
   type = string
 }
 
+variable "subnet_id" {
+  type = string
+}
+
 variable "ami" {
   type = string
   default = "ami-0454bb2fefc7de534"
