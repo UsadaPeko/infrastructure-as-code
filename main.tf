@@ -7,6 +7,12 @@ module "rhea-so" {
 }
 
 # Environments
+module "global" {
+	source = "./modules/environment/global"
+
+	route53_zone_id = module.rhea-so.zone_id
+}
+
 module "production" {
 	source = "./modules/environment/production"
 
