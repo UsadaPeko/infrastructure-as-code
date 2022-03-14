@@ -22,10 +22,10 @@ module "home-sg" {
 #   security_group_ids = [module.home-sg.id]
 # }
 
-module "domain" {
-  source = "../../aws/route53/record"
+# module "domain" {
+#   source = "../../aws/route53/record"
 
-  zone_id = var.route53_zone_id
-  address = "test.rhea-so.com"
-  proxy_target = module.ec2.ip
-}
+#   zone_id = var.route53_zone_id
+#   address = "test.rhea-so.com"
+#   proxy_target = module.ec2.ip
+# }
