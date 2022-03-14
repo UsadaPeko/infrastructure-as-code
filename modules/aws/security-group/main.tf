@@ -13,7 +13,7 @@ resource "aws_security_group" "security-group" {
   egress {
     from_port = var.port
     to_port = var.port
-    protocol = "-1"
+    protocol = var.protocol
     cidr_blocks = var.ip_v4_to
     ipv6_cidr_blocks = var.ip_v6_to
   }
