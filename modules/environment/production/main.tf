@@ -1,7 +1,7 @@
 module "vpc" {
   source = "../../aws/vpc"
 
-  name = var.name
+  name = "test"
 }
 
 module "home-sg" {
