@@ -2,7 +2,7 @@ variable "zone_id" {
   type = string
 }
 
-variable "name" {
+variable "address" {
   type = string
 }
 
@@ -16,6 +16,6 @@ variable "ttl" {
   default = "300"
 }
 
-variable "target" {
+variable "proxy_target" {
   type = string
 }
