@@ -15,7 +15,7 @@ module "home-sg" {
 }
 
 module "ec2" {
-  source = "../../service/simple-ec2"
+  source = "../../aws/ec2"
 
   name = "test"
   subnet_id = module.vpc.id
