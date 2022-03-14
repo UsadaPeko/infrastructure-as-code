@@ -1,13 +1,31 @@
-module "atlantis-rhea-so" {
+module "vpc" {
+  source = "../../aws/vpc"
+
+  name = "test"
+}
+
+module "home-sg" {
+  source = "../../aws/security-group"
+
+  name = "home-sg"
+  protocol = "tcp"
+  port = 22
+  ip_v4_from = ["121.161.240.241/32"]
+  vpc_id = module.vpc.id
+}
+
+module "ec2" {
+  source = "../../aws/ec2"
+
+  name = "test"
+  subnet_id = module.vpc.subnet_ids[0]
+  security_group_ids = [module.home-sg.id]
+}
+
+module "domain" {
   source = "../../aws/route53/record"
 
   zone_id = var.route53_zone_id
-  name = "atlantis.rhea-so.com"
-  target = "52.78.144.248" # Atlantis를 통해 만든 EC2가 아니어서, 직접 EC2 IP를 적어줌
-}
-
-module "production-vpc" {
-  source = "../../aws/vpc"
-
-  name = "production-vpc"
+  address = "test.rhea-so.com"
+  proxy_target = module.ec2.ip
 }
