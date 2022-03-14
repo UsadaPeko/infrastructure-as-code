@@ -7,13 +7,8 @@ variable "protocol" {
   default = "-1"
 }
 
-variable "port_from" {
+variable "port" {
   type = string
-}
-
-variable "port_to" {
-  type = string
-  default = var.port_from
 }
 
 variable "ip_v4_from" {

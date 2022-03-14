@@ -3,7 +3,7 @@ module "home-sg" {
 
   name = "home-sg"
   protocol = "tcp"
-  port_from = 22
+  port = 22
   ip_v4_from = ["121.161.240.241/32"]
 }
 
